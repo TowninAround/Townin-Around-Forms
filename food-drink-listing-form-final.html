@@ -798,7 +798,8 @@
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Checkbox / Radio toggle ──
   document.querySelectorAll('.check-opt').forEach(opt => {
-    opt.addEventListener('click', () => {
+    opt.addEventListener('click', function(e) {
+      e.preventDefault();
       const cb = opt.querySelector('input[type="checkbox"]');
       cb.checked = !cb.checked;
       opt.classList.toggle('selected', cb.checked);
@@ -806,10 +807,12 @@
   });
 
   document.querySelectorAll('.radio-opt').forEach(opt => {
-    opt.addEventListener('click', () => {
+    opt.addEventListener('click', function(e) {
+      e.preventDefault();
       const rb = opt.querySelector('input[type="radio"]');
       const name = rb.name;
-      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+      document.querySelectorAll('input[name="' + name + '"]').forEach(r => {
+        r.checked = false;
         r.closest('.radio-opt').classList.remove('selected');
       });
       rb.checked = true;
