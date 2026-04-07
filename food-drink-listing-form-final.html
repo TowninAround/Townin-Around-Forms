@@ -56,6 +56,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
 .field { margin-bottom: 1.25rem; }
 .field:last-child { margin-bottom: 0; }
 .field > label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--gray-900); margin-bottom: 0.3rem; }
+.opt-label { display: flex !important; font-weight: 400 !important; margin-bottom: 0 !important; }
 .req { color: var(--red); margin-left: 2px; }
 .hint { font-size: 0.775rem; color: var(--gray-600); margin-bottom: 0.4rem; line-height: 1.5; }
 
@@ -90,8 +91,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   cursor: pointer;
   transition: border-color 0.12s, background 0.12s;
   user-select: none;
+  position: relative;
 }
 .opt-label:hover { border-color: var(--teal); background: var(--teal-light); }
+.opt-label:has(input:checked) { border-color: var(--teal); background: var(--teal-light); font-weight: 500; }
 
 .opt-label input[type="checkbox"],
 .opt-label input[type="radio"] {
@@ -99,6 +102,14 @@ body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(
   flex-shrink: 0;
   cursor: pointer;
   accent-color: var(--teal);
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+.opt-label {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
 }
 
 /* Tier cards */
