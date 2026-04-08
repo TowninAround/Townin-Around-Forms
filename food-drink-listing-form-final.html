@@ -230,7 +230,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--gray-9
       <div class="field">
         <label>Do you have a logo or photos to include?</label>
         <div class="options-list">
-          <label class="opt-label"><input type="radio" name="photos" value="Yes - will email"> Yes - I'll email them to admin@towninaround.com</label>
+          <label class="opt-label"><input type="radio" name="photos" value="Yes - will email"> Yes - I'll email them to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bbdadfd6d2d5fbcfd4ccd5d2d5dac9d4ced5df95d8d4d6">[email&#160;protected]</a></label>
           <label class="opt-label"><input type="radio" name="photos" value="No - not at this time"> No - not at this time</label>
           <label class="opt-label"><input type="radio" name="photos" value="I would like help with that"> I'd like help with that</label>
         </div>
@@ -250,7 +250,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--gray-9
             <div class="tier-body"><div class="tier-name">Retail</div><div class="tier-price">$9.95 / month</div><div class="tier-desc">Everything in Basic + photos, social links, description, and tags</div></div>
           </label>
           <label class="tier-card featured"><input type="radio" name="tier" value="Restaurant/Booking - $19.95/mo">
-            <div class="tier-body"><div class="tier-badge">Most popular for restaurants</div><div class="tier-name">Restaurant / Booking</div><div class="tier-price">$19.95 / month</div><div class="tier-desc">Everything in Retail + daily specials, lead capture, booking link, and featured placement</div></div>
+            <div class="tier-body"><div class="tier-badge">Most popular for restaurants</div><div class="tier-name">Restaurant / Booking</div><div class="tier-price">$19.95 / month</div><div class="tier-desc">Everything in Retail + post daily deals &amp; specials, lead capture form, and booking link</div></div>
           </label>
         </div>
         <div class="field-error" id="tier-error">Please select a tier</div>
@@ -268,7 +268,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--gray-9
     <div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
     <h2>You're on the list!</h2>
     <p>Thank you for joining Townin' Around! I'll be in touch shortly to confirm your listing details.<br><br>
-    If you have a logo or photos, please email them to <strong>admin@towninaround.com</strong>.<br><br>
+    If you have a logo or photos, please email them to <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfbebbb2b6b19fabb0a8b1b6b1beadb0aab1bbf1bcb0b2">[email&#160;protected]</a></strong>.<br><br>
     &#8212; Dawn, Townin' Around</p>
   </div>
 
@@ -276,11 +276,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--gray-9
 
 <div class="site-footer">
   <a href="https://towninaround.com">towninaround.com</a> &nbsp;&middot;&nbsp;
-  <a href="mailto:admin@towninaround.com">admin@towninaround.com</a> &nbsp;&middot;&nbsp;
+  <a href="/cdn-cgi/l/email-protection#a3c2c7cecacde3d7ccd4cdcacdc2d1ccd6cdc78dc0ccce"><span class="__cf_email__" data-cfemail="0f6e6b6266614f7b60786166616e7d607a616b216c6062">[email&#160;protected]</span></a> &nbsp;&middot;&nbsp;
   <a href="tel:3197500131">319-750-0131</a>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 document.getElementById("listing-form").addEventListener("submit", async function(e) {
   e.preventDefault();
   var valid = true;
@@ -329,20 +329,4 @@ document.getElementById("listing-form").addEventListener("submit", async functio
     });
     if (res.ok) {
       document.getElementById("listing-form").style.display = "none";
-      var s = document.getElementById("success-screen");
-      s.style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      btn.textContent = "Submit listing →";
-      btn.disabled = false;
-      alert("Something went wrong. Please email admin@towninaround.com directly.");
-    }
-  } catch(err) {
-    btn.textContent = "Submit listing →";
-    btn.disabled = false;
-    alert("Something went wrong. Please email admin@towninaround.com directly.");
-  }
-});
-</script>
-</body>
-</html>
+      var s = document.ge
