@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Townin's Around - Garage Sale Listing</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1A5276;--navy-dark:#154360;--teal:#148F77;--teal-light:#E8F5F1;
+  --teal-mid:#A8DACC;--cream:#FAFAF8;--white:#FFFFFF;--gray-100:#F4F4F2;
+  --gray-200:#E8E8E4;--gray-400:#ABABAB;--gray-600:#6B6B68;--gray-900:#1C1C1A;
+  --red:#C0392B;--amber:#D4820A;--amber-light:#FEF3E2;
+  --radius:12px;--radius-sm:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--gray-900);padding-bottom:4rem;}
+.site-header{background:var(--navy);padding:1.25rem 2rem;display:flex;align-items:center;gap:1rem;}
+.logo-mark{width:38px;height:38px;background:var(--teal);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-mark svg{width:22px;height:22px;fill:white;}
+.brand-name{font-family:'DM Serif Display',serif;font-size:1.35rem;color:white;}
+.brand-tag{font-size:0.72rem;color:var(--teal-mid);font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-left:auto;}
+.form-hero{background:var(--navy);padding:2.5rem 2rem 3.5rem;text-align:center;}
+.category-pill{display:inline-block;background:rgba(20,143,119,0.25);color:var(--teal-mid);border:1px solid rgba(168,218,204,0.3);font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.9rem;border-radius:999px;margin-bottom:1rem;}
+.form-hero h1{font-family:'DM Serif Display',serif;font-size:2rem;color:white;margin-bottom:0.75rem;}
+.form-hero p{color:rgba(255,255,255,0.7);font-size:0.9rem;max-width:480px;margin:0 auto;line-height:1.6;}
+.seasonal-notice{max-width:660px;margin:-1.25rem auto 0;position:relative;z-index:2;padding:0 1rem;}
+.seasonal-notice-inner{background:var(--white);border:1px solid #F5C842;border-left:4px solid var(--amber);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;align-items:flex-start;gap:0.75rem;box-shadow:0 4px 20px rgba(26,82,118,0.10);}
+.notice-icon{width:32px;height:32px;flex-shrink:0;background:var(--amber-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.notice-text strong{display:block;font-size:0.85rem;font-weight:600;color:var(--amber);margin-bottom:2px;}
+.notice-text span{font-size:0.8rem;color:var(--gray-600);line-height:1.5;}
+.form-container{max-width:660px;margin:2rem auto 0;padding:0 1rem;}
+.req-note{font-size:0.78rem;color:var(--gray-600);margin-bottom:1.25rem;}
+.req-note span{color:var(--red);}
+.section-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.5rem;margin-bottom:1rem;box-shadow:0 1px 4px rgba(26,82,118,0.07);}
+.section-label{display:flex;align-items:center;gap:0.6rem;margin-bottom:1.25rem;}
+.section-num{width:26px;height:26px;background:var(--navy);color:white;border-radius:50%;font-size:0.72rem;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.section-title{font-size:0.8rem;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.07em;}
+.field{margin-bottom:1.25rem;}
+.field:last-child{margin-bottom:0;}
+.field > label{display:block;font-size:0.875rem;font-weight:500;color:var(--gray-900);margin-bottom:0.3rem;}
+.req{color:var(--red);margin-left:2px;}
+.hint{font-size:0.775rem;color:var(--gray-600);margin-bottom:0.4rem;line-height:1.5;}
+.field input[type="text"],.field input[type="email"],.field input[type="tel"],.field input[type="date"],.field input[type="time"],.field textarea{width:100%;font-family:'DM Sans',sans-serif;font-size:0.875rem;color:var(--gray-900);background:var(--gray-100);border:1.5px solid transparent;border-radius:var(--radius-sm);padding:0.6rem 0.85rem;outline:none;}
+.field input:focus,.field textarea:focus{background:white;border-color:var(--teal);box-shadow:0 0 0 3px rgba(20,143,119,0.1);}
+.field textarea{resize:vertical;min-height:90px;line-height:1.6;}
+.field input::placeholder,.field textarea::placeholder{color:var(--gray-400);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:520px){.field-row{grid-template-columns:1fr;}}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;}
+.options-list{display:flex;flex-direction:column;gap:0.5rem;}
+@media(max-width:520px){.options-grid{grid-template-columns:1fr;}}
+.opt-label{display:flex !important;align-items:center;gap:0.65rem;font-size:0.875rem;font-weight:400 !important;color:var(--gray-900);padding:0.5rem 0.75rem;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);background:var(--gray-100);cursor:pointer;transition:border-color 0.12s,background 0.12s;user-select:none;margin-bottom:0 !important;}
+.opt-label:hover{border-color:var(--teal);background:var(--teal-light);}
+.opt-label:has(input:checked){border-color:var(--teal);background:var(--teal-light);font-weight:500 !important;}
+.opt-label input[type="checkbox"],.opt-label input[type="radio"]{width:18px;height:18px;flex-shrink:0;cursor:pointer;accent-color:var(--teal);position:relative;z-index:10;}
+.listing-cards{display:flex;flex-direction:column;gap:0.65rem;}
+.listing-card{display:flex;align-items:flex-start;gap:0.85rem;padding:1rem 1.1rem;border:1.5px solid var(--gray-200);border-radius:var(--radius);background:var(--gray-100);cursor:pointer;transition:border-color 0.15s,background 0.15s;user-select:none;}
+.listing-card:hover{border-color:var(--teal);background:var(--teal-light);}
+.listing-card.featured{border-color:var(--amber);}
+.listing-card:has(input:checked){border-color:var(--teal);background:var(--teal-light);}
+.listing-card input[type="radio"]{margin-top:3px;flex-shrink:0;width:18px;height:18px;accent-color:var(--teal);cursor:pointer;}
+.listing-body{flex:1;}
+.listing-badge{display:inline-block;font-size:0.68rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;background:var(--amber-light);color:var(--amber);border:1px solid #F5C842;padding:0.18rem 0.6rem;border-radius:999px;margin-bottom:0.35rem;}
+.listing-name{font-size:0.9rem;font-weight:600;color:var(--gray-900);}
+.listing-price{font-size:0.85rem;font-weight:600;color:var(--teal);margin:0.15rem 0;}
+.listing-desc{font-size:0.775rem;color:var(--gray-600);line-height:1.5;}
+.section-desc{font-size:0.82rem;color:var(--gray-600);line-height:1.6;background:var(--gray-100);border-radius:var(--radius-sm);padding:0.75rem 1rem;margin-bottom:1.25rem;}
+.field-error{font-size:0.75rem;color:var(--red);margin-top:4px;display:none;}
+.field-error.show{display:block;}
+.input-error{border-color:var(--red) !important;background:#FEF5F5 !important;}
+.submit-section{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.5rem;box-shadow:0 1px 4px rgba(26,82,118,0.07);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.submit-note{font-size:0.78rem;color:var(--gray-600);line-height:1.5;}
+.submit-note strong{color:var(--gray-900);}
+.submit-btn{background:var(--navy);color:white;border:none;border-radius:var(--radius-sm);padding:0.75rem 2rem;font-family:'DM Sans',sans-serif;font-size:0.875rem;font-weight:600;cursor:pointer;letter-spacing:0.02em;transition:background 0.15s;white-space:nowrap;}
+.submit-btn:hover{background:var(--navy-dark);}
+.success-screen{display:none;text-align:center;padding:3rem 1.5rem;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:1rem;box-shadow:0 1px 4px rgba(26,82,118,0.07);}
+.check-circle{width:64px;height:64px;background:var(--teal-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;}
+.check-circle svg{width:30px;height:30px;stroke:var(--teal);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.success-screen h2{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:0.75rem;}
+.success-screen p{font-size:0.875rem;color:var(--gray-600);line-height:1.7;max-width:420px;margin:0 auto;}
+.site-footer{text-align:center;padding:2rem 1rem 0;font-size:0.78rem;color:var(--gray-400);line-height:1.8;}
+.site-footer a{color:var(--teal);text-decoration:none;}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg></div>
+  <span class="brand-name">Townin' Around</span>
+  <span class="brand-tag">Burlington &amp; Surrounding Area</span>
+</header>
+
+<div class="form-hero">
+  <div class="category-pill">Garage Sales</div>
+  <h1>List Your Garage Sale</h1>
+  <p>Get your sale in front of local shoppers on Townin' Around — the easiest way to drive more traffic to your driveway.</p>
+</div>
+
+<div class="seasonal-notice">
+  <div class="seasonal-notice-inner">
+    <div class="notice-icon">&#128337;</div>
+    <div class="notice-text">
+      <strong>Seasonal listings — submit early!</strong>
+      <span>Garage sale listings are available seasonally. Once submitted, Dawn will confirm your listing and get it live before your sale date. Featured Sales with photos go up first!</span>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+  <p class="req-note" style="margin-top:1.5rem;"><span>*</span> Required field</p>
+  <form id="listing-form" novalidate>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">1</div><div class="section-title">Contact Information</div></div>
+      <div class="hint" style="margin-bottom:1rem;">Your contact info is for our records only and will not appear on your public listing.</div>
+      <div class="field-row">
+        <div class="field"><label>Your name <span class="req">*</span></label><input type="text" name="contact_name" placeholder="First and last name" required><div class="field-error">Please enter your name</div></div>
+        <div class="field"><label>Phone number <span class="req">*</span></label><input type="tel" name="phone" placeholder="(319) 000-0000" required><div class="field-error">Please enter a phone number</div></div>
+      </div>
+      <div class="field"><label>Email address <span class="req">*</span></label><input type="email" name="email" placeholder="you@example.com" required><div class="field-error">Please enter a valid email</div></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">2</div><div class="section-title">Sale Location &amp; Dates</div></div>
+      <div class="field"><label>Sale address <span class="req">*</span></label><input type="text" name="address" placeholder="123 Main St" required><div class="field-error">Please enter the sale address</div></div>
+      <div class="field-row">
+        <div class="field"><label>City <span class="req">*</span></label><input type="text" name="city" placeholder="Burlington" required><div class="field-error">Required</div></div>
+        <div class="field"><label>State &amp; ZIP <span class="req">*</span></label><input type="text" name="state_zip" placeholder="IA 52601" required><div class="field-error">Required</div></div>
+      </div>
+      <div class="field"><label>Sale dates <span class="req">*</span></label><div class="hint">List all days your sale is running</div><input type="text" name="sale_dates" placeholder="e.g. Friday May 9 & Saturday May 10" required><div class="field-error">Please enter your sale dates</div></div>
+      <div class="field-row">
+        <div class="field"><label>Start time <span class="req">*</span></label><input type="text" name="start_time" placeholder="e.g. 7:00 AM" required><div class="field-error">Required</div></div>
+        <div class="field"><label>End time <span class="req">*</span></label><input type="text" name="end_time" placeholder="e.g. 2:00 PM" required><div class="field-error">Required</div></div>
+      </div>
+      <div class="field"><label>Rain date or cancellation plan</label><input type="text" name="rain_date" placeholder="e.g. Rain date Sunday May 11, or rain cancels"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">3</div><div class="section-title">What's for Sale</div></div>
+      <div class="field"><label>Types of items <span class="req">*</span></label><div class="hint">Select all that apply — this helps shoppers find your sale</div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Furniture"> Furniture</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Clothing & shoes"> Clothing &amp; shoes</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Kids & baby items"> Kids &amp; baby items</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Toys & games"> Toys &amp; games</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Tools & hardware"> Tools &amp; hardware</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Electronics"> Electronics</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Appliances"> Appliances</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Books & media"> Books &amp; media</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Kitchenware"> Kitchenware</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Home decor"> Home decor</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Antiques & collectibles"> Antiques &amp; collectibles</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Sporting goods"> Sporting goods</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Holiday & seasonal"> Holiday &amp; seasonal</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Plants & garden"> Plants &amp; garden</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Craft supplies"> Craft supplies</label>
+          <label class="opt-label"><input type="checkbox" name="item_types" value="Jewelry & accessories"> Jewelry &amp; accessories</label>
+        </div>
+        <div class="field-error" id="items-error">Please select at least one item type</div>
+      </div>
+      <div class="field"><label>Description / highlights <span class="req">*</span></label><div class="hint">Tell shoppers what makes your sale worth stopping at. Any standout items, brands, or deals?</div><textarea name="description" placeholder="e.g. Moving sale — everything must go! Lots of name brand women's clothing sizes S-L, vintage kitchenware, tools, and a sectional sofa in great condition..." required></textarea><div class="field-error">Please enter a description</div></div>
+      <div class="field"><label>Is this a multi-family sale?</label>
+        <div class="options-list">
+          <label class="opt-label"><input type="radio" name="multi_family" value="No - just me"> No - just me</label>
+          <label class="opt-label"><input type="radio" name="multi_family" value="Yes - 2 families"> Yes - 2 families</label>
+          <label class="opt-label"><input type="radio" name="multi_family" value="Yes - 3 or more families"> Yes - 3 or more families</label>
+          <label class="opt-label"><input type="radio" name="multi_family" value="Estate sale"> Estate sale</label>
+        </div>
+      </div>
+      <div class="field"><label>Payment accepted</label><div class="hint">Select all that apply</div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" name="payment" value="Cash only"> Cash only</label>
+          <label class="opt-label"><input type="checkbox" name="payment" value="Venmo"> Venmo</label>
+          <label class="opt-label"><input type="checkbox" name="payment" value="Cash App"> Cash App</label>
+          <label class="opt-label"><input type="checkbox" name="payment" value="PayPal"> PayPal</label>
+          <label class="opt-label"><input type="checkbox" name="payment" value="Card"> Card</label>
+          <label class="opt-label"><input type="checkbox" name="payment" value="All forms accepted"> All forms accepted</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">4</div><div class="section-title">Choose Your Listing</div></div>
+      <div class="section-desc">Pick the option that works best for you. Featured Sales with photos get more clicks and more shoppers at your door!</div>
+      <div class="field">
+        <label>Which listing would you like? <span class="req">*</span></label>
+        <div class="listing-cards">
+          <label class="listing-card">
+            <input type="radio" name="listing_type" value="Free listing" required>
+            <div class="listing-body">
+              <div class="listing-name">Free Listing</div>
+              <div class="listing-price">Free</div>
+              <div class="listing-desc">Address, dates &amp; times, item types, and sale description — everything shoppers need to find you</div>
+            </div>
+          </label>
+          <label class="listing-card featured">
+            <input type="radio" name="listing_type" value="Featured Sale - $4.95">
+            <div class="listing-body">
+              <div class="listing-badge">&#11088; Featured Sale</div>
+              <div class="listing-name">Featured Sale</div>
+              <div class="listing-price">$4.95</div>
+              <div class="listing-desc">Everything in the free listing + up to 6 photos of your items — show shoppers what you've got before they even leave the house</div>
+            </div>
+          </label>
+        </div>
+        <div class="field-error" id="listing-type-error">Please select a listing type</div>
+      </div>
+      <div class="field">
+        <label>Do you have photos to include? (Featured Sale only)</label>
+        <div class="hint">If you selected Featured Sale, email up to 6 photos to admin@towninaround.com after submitting. Put your sale address in the subject line.</div>
+        <div class="options-list">
+          <label class="opt-label"><input type="radio" name="photos" value="Yes - I will email up to 6 photos"> Yes - I will email up to 6 photos</label>
+          <label class="opt-label"><input type="radio" name="photos" value="No photos"> No photos / free listing</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-section">
+      <div class="submit-note"><strong>Questions?</strong><br>Call or text Dawn at <a href="tel:3197500131" style="color:var(--teal);">319-750-0131</a></div>
+      <button type="submit" class="submit-btn">Submit my sale &#8594;</button>
+    </div>
+
+  </form>
+
+  <div class="success-screen" id="success-screen">
+    <div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h2>Your sale is submitted!</h2>
+    <p>Thanks for listing on Townin' Around! I'll get your sale live as soon as possible.<br><br>
+    If you selected a Featured Sale, please email up to 6 photos to <strong>admin@towninaround.com</strong> with your sale address in the subject line.<br><br>
+    &#8212; Dawn, Townin' Around</p>
+  </div>
+
+</div>
+<div class="site-footer">
+  <a href="https://towninaround.com">towninaround.com</a> &nbsp;&middot;&nbsp;
+  <a href="mailto:admin@towninaround.com">admin@towninaround.com</a> &nbsp;&middot;&nbsp;
+  <a href="tel:3197500131">319-750-0131</a>
+</div>
+<script>
+document.getElementById("listing-form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  var valid = true;
+  this.querySelectorAll("input[required], textarea[required]").forEach(function(input) {
+    var field = input.closest(".field");
+    var err = field ? field.querySelector(".field-error") : null;
+    if (!input.value.trim()) {
+      input.classList.add("input-error");
+      if (err) err.classList.add("show");
+      valid = false;
+    } else {
+      input.classList.remove("input-error");
+      if (err) err.classList.remove("show");
+    }
+  });
+  var itemsChecked = document.querySelectorAll("input[name=item_types]:checked");
+  if (itemsChecked.length === 0) {
+    document.getElementById("items-error").classList.add("show");
+    valid = false;
+  } else {
+    document.getElementById("items-error").classList.remove("show");
+  }
+  if (!document.querySelector("input[name=listing_type]:checked")) {
+    document.getElementById("listing-type-error").classList.add("show");
+    valid = false;
+  } else {
+    document.getElementById("listing-type-error").classList.remove("show");
+  }
+  if (!valid) return;
+  var data = new FormData(this);
+  ["item_types","payment"].forEach(function(name) {
+    var vals = [];
+    document.querySelectorAll("input[name=" + name + "]:checked").forEach(function(i){ vals.push(i.value); });
+    data.set(name, vals.join(", ") || "None selected");
+  });
+  var btn = this.querySelector(".submit-btn");
+  btn.textContent = "Submitting...";
+  btn.disabled = true;
+  try {
+    var res = await fetch("https://formspree.io/f/xpqonade", { method: "POST", body: data, headers: { "Accept": "application/json" } });
+    if (res.ok) {
+      document.getElementById("listing-form").style.display = "none";
+      var s = document.getElementById("success-screen");
+      s.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      btn.textContent = "Submit my sale →"; btn.disabled = false;
+      alert("Something went wrong. Please email admin@towninaround.com directly.");
+    }
+  } catch(err) {
+    btn.textContent = "Submit my sale →"; btn.disabled = false;
+    alert("Something went wrong. Please email admin@towninaround.com directly.");
+  }
+});
+</script>
+</body>
+</html>
