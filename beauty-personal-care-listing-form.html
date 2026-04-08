@@ -127,22 +127,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--gray-9
     <div class="section-card">
       <div class="section-label"><div class="section-num">2</div><div class="section-title">Business Type</div></div>
       <div class="field">
-        <label>Which best describes your business? <span class="req">*</span></label>
-        <div class="options-list">
-          <label class="opt-label"><input type="radio" name="business_type" value="Salon (hair)" required> Salon (hair)</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Barbershop"> Barbershop</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Nail salon"> Nail salon</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Spa / day spa"> Spa / day spa</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Esthetics / skincare"> Esthetics / skincare</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Lash / brow studio"> Lash / brow studio</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Cosmetic tattoo / permanent makeup"> Cosmetic tattoo / permanent makeup</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Massage therapy"> Massage therapy</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Tanning salon"> Tanning salon</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Multi-service salon or spa"> Multi-service salon or spa</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Mobile / in-home beauty services"> Mobile / in-home beauty services</label>
-          <label class="opt-label"><input type="radio" name="business_type" value="Other"> Other</label>
+        <label>What services do you offer? <span class="req">*</span></label>
+        <div class="hint">Select all that apply</div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Hair salon"> Hair salon</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Barbershop"> Barbershop</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Nail salon"> Nail salon</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Spa / day spa"> Spa / day spa</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Esthetics / skincare"> Esthetics / skincare</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Lash / brow studio"> Lash / brow studio</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Cosmetic tattoo / permanent makeup"> Cosmetic tattoo / permanent makeup</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Massage therapy"> Massage therapy</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Tanning salon"> Tanning salon</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Mobile / in-home services"> Mobile / in-home services</label>
+          <label class="opt-label"><input type="checkbox" name="business_type" value="Other"> Other</label>
         </div>
-        <div class="field-error" id="business-type-error">Please select a business type</div>
+        <div class="field-error" id="business-type-error">Please select at least one service type</div>
       </div>
       <div class="field"><label>If other, please describe</label><input type="text" name="business_type_other" placeholder="Your answer"></div>
     </div>
@@ -332,8 +332,15 @@ document.getElementById("listing-form").addEventListener("submit", async functio
     }
   });
 
+  var btChecked = document.querySelectorAll("input[name=business_type]:checked");
+  if (btChecked.length === 0) {
+    document.getElementById("business-type-error").classList.add("show");
+    valid = false;
+  } else {
+    document.getElementById("business-type-error").classList.remove("show");
+  }
+
   var radioGroups = [
-    { name: "business_type", errorId: "business-type-error" },
     { name: "booking_method", errorId: "booking-error" },
     { name: "lead_method", errorId: "lead-error" },
     { name: "tier", errorId: "tier-error" }
@@ -350,6 +357,10 @@ document.getElementById("listing-form").addEventListener("submit", async functio
   if (!valid) return;
 
   var data = new FormData(this);
+  var btVals = [];
+  document.querySelectorAll("input[name=business_type]:checked").forEach(function(i){ btVals.push(i.value); });
+  data.set("business_type", btVals.join(", "));
+
   var checkboxFields = ["offerings"];
   checkboxFields.forEach(function(name) {
     var checked = [];
