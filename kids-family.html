@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Townin' Around — Kids & Family Listing</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1C2B4A;
+    --navy-light: #2D3F5E;
+    --amber: #D4854A;
+    --amber-light: #F0A96B;
+    --amber-pale: #FDF0E6;
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF7;
+    --sage: #7A9E7E;
+    --sage-light: #EBF2EC;
+    --text-dark: #1C2B4A;
+    --text-mid: #5A6A7A;
+    --text-light: #8A9BAB;
+    --border: #E8E0D6;
+    --shadow: 0 4px 24px rgba(28,43,74,0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  .form-banner {
+    background: var(--navy);
+    padding: 36px 32px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-banner::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: rgba(212,133,74,0.10);
+    border-radius: 50%;
+  }
+
+  .form-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20px;
+    width: 140px; height: 140px;
+    background: rgba(212,133,74,0.06);
+    border-radius: 50%;
+  }
+
+  .banner-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--amber);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .banner-title {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .banner-subtitle {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+  }
+
+  .banner-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(122,158,126,0.25);
+    border: 1px solid rgba(122,158,126,0.4);
+    color: #A8D4AC;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 50px;
+    margin-top: 14px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .form-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  .form-card {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--amber);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .field-group {
+    margin-bottom: 18px;
+  }
+
+  .field-group:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+
+  label .required {
+    color: var(--amber);
+    margin-left: 2px;
+  }
+
+  label .hint {
+    font-weight: 400;
+    color: var(--text-light);
+    font-size: 12px;
+    margin-left: 4px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    background: var(--warm-white);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(212,133,74,0.12);
+    background: white;
+  }
+
+  textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--warm-white);
+  }
+
+  .checkbox-item:hover {
+    border-color: var(--amber);
+    background: var(--amber-pale);
+  }
+
+  .checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--amber);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .checkbox-item span {
+    font-size: 13px;
+    color: var(--text-dark);
+    font-weight: 500;
+  }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .tier-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--warm-white);
+  }
+
+  .tier-item:hover { border-color: var(--amber); background: var(--amber-pale); }
+
+  .tier-item input[type="radio"] {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--amber);
+    cursor: pointer;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .tier-info { flex: 1; }
+
+  .tier-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+  }
+
+  .tier-price {
+    font-size: 13px;
+    color: var(--amber);
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  .tier-desc {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.4;
+  }
+
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .hours-grid label {
+    margin-bottom: 0;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .hours-inputs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hours-inputs input { flex: 1; }
+  .hours-inputs span { color: var(--text-light); font-size: 13px; flex-shrink: 0; }
+
+  .info-box {
+    background: var(--sage-light);
+    border: 1px solid #C5DCC7;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #3B6D11;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--amber);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+  }
+
+  .submit-btn:hover { background: var(--amber-light); }
+  .submit-btn:active { transform: scale(0.99); }
+
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  .footer-note a { color: var(--amber); text-decoration: none; }
+
+  @media (max-width: 500px) {
+    .two-col { grid-template-columns: 1fr; }
+    .checkbox-grid { grid-template-columns: 1fr; }
+    .form-banner { padding: 24px 20px; }
+    .form-card { padding: 20px; }
+    .hours-grid { grid-template-columns: 80px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="form-banner">
+  <div class="banner-logo">
+    <div class="logo-icon">🏘️</div>
+    <span class="logo-text">Townin' Around</span>
+  </div>
+  <div class="banner-title">Kids & Family Listing</div>
+  <div class="banner-subtitle">Add your kids & family business to Burlington's local directory. Reach families in your community who are looking for exactly what you offer.</div>
+  <div class="banner-badge">✦ Free during launch period</div>
+</div>
+
+<div class="form-container">
+
+  <div class="info-box">
+    🎉 Listings are <strong>FREE</strong> during our launch period. Once the promotional period ends, you'll receive a simple invoice via QuickBooks with easy autopay options.
+  </div>
+
+  <form action="https://formspree.io/f/xpqonade" method="POST">
+
+    <input type="hidden" name="category" value="Kids & Family">
+    <input type="hidden" name="_subject" value="New Kids & Family Listing — Townin' Around">
+    <input type="hidden" name="_next" value="https://towninaround.github.io/Townin-Around-Forms/thank-you.html">
+
+    <!-- BUSINESS TYPE -->
+    <div class="form-card">
+      <div class="section-label">Business Type</div>
+      <div class="field-group">
+        <label>What best describes your business? <span class="required">*</span></label>
+        <div class="checkbox-grid">
+          <label class="checkbox-item">
+            <input type="checkbox" name="business_type[]" value="Indoor Play Place">
+            <span>🧸 Indoor Play Place</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="business_type[]" value="Arcade & Entertainment">
+            <span>🎮 Arcade & Entertainment</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="business_type[]" value="Birthday Party Venue">
+            <span>🎂 Birthday Party Venue</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="business_type[]" value="Daycare & Childcare">
+            <span>👶 Daycare & Childcare</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="business_type[]" value="Kids Activities & Classes">
+            <span>🎨 Kids Activities & Classes</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="business_type[]" value="Tutoring & Lessons">
+            <span>📚 Tutoring & Lessons</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="business_type[]" value="Summer Camp">
+            <span>⛺ Summer Camp</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="business_type[]" value="Other">
+            <span>✦ Other</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUSINESS INFO -->
+    <div class="form-card">
+      <div class="section-label">Business Information</div>
+      <div class="field-group">
+        <label>Business Name <span class="required">*</span></label>
+        <input type="text" name="business_name" placeholder="e.g. Jumping Jacks Indoor Play" required>
+      </div>
+      <div class="field-group">
+        <label>Business Address <span class="required">*</span></label>
+        <input type="text" name="address" placeholder="Street address, Burlington, IA" required>
+      </div>
+      <div class="two-col">
+        <div class="field-group">
+          <label>Phone Number <span class="required">*</span></label>
+          <input type="tel" name="phone" placeholder="(319) 000-0000" required>
+        </div>
+        <div class="field-group">
+          <label>Website <span class="hint">(optional)</span></label>
+          <input type="url" name="website" placeholder="https://yoursite.com">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Email Address <span class="required">*</span></label>
+        <input type="email" name="email" placeholder="you@yourbusiness.com" required>
+      </div>
+      <div class="field-group">
+        <label>Facebook Page URL <span class="hint">(optional)</span></label>
+        <input type="url" name="facebook" placeholder="https://facebook.com/yourbusiness">
+      </div>
+    </div>
+
+    <!-- HOURS -->
+    <div class="form-card">
+      <div class="section-label">Hours of Operation</div>
+      <div class="hours-grid">
+        <label>Monday</label>
+        <div class="hours-inputs">
+          <input type="text" name="hours_monday" placeholder="e.g. 9am–6pm or Closed">
+        </div>
+      </div>
+      <div class="hours-grid">
+        <label>Tuesday</label>
+        <div class="hours-inputs">
+          <input type="text" name="hours_tuesday" placeholder="e.g. 9am–6pm or Closed">
+        </div>
+      </div>
+      <div class="hours-grid">
+        <label>Wednesday</label>
+        <div class="hours-inputs">
+          <input type="text" name="hours_wednesday" placeholder="e.g. 9am–6pm or Closed">
+        </div>
+      </div>
+      <div class="hours-grid">
+        <label>Thursday</label>
+        <div class="hours-inputs">
+          <input type="text" name="hours_thursday" placeholder="e.g. 9am–6pm or Closed">
+        </div>
+      </div>
+      <div class="hours-grid">
+        <label>Friday</label>
+        <div class="hours-inputs">
+          <input type="text" name="hours_friday" placeholder="e.g. 9am–6pm or Closed">
+        </div>
+      </div>
+      <div class="hours-grid">
+        <label>Saturday</label>
+        <div class="hours-inputs">
+          <input type="text" name="hours_saturday" placeholder="e.g. 9am–6pm or Closed">
+        </div>
+      </div>
+      <div class="hours-grid">
+        <label>Sunday</label>
+        <div class="hours-inputs">
+          <input type="text" name="hours_sunday" placeholder="e.g. 9am–6pm or Closed">
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="form-card">
+      <div class="section-label">About Your Business</div>
+      <div class="field-group">
+        <label>Short Description <span class="required">*</span> <span class="hint">(1–2 sentences)</span></label>
+        <textarea name="short_description" rows="3" placeholder="Briefly describe what you offer and who it's for..." required></textarea>
+      </div>
+      <div class="field-group">
+        <label>Top 5 Services or Activities <span class="hint">(optional)</span></label>
+        <textarea name="top_services" rows="4" placeholder="e.g. Open play, toddler time, birthday parties, summer camps, after-school programs..."></textarea>
+      </div>
+      <div class="field-group">
+        <label>Age Ranges Served <span class="hint">(optional)</span></label>
+        <input type="text" name="age_ranges" placeholder="e.g. Ages 0–12, Toddlers to teens, All ages">
+      </div>
+      <div class="field-group">
+        <label>Admission or Pricing Info <span class="hint">(optional)</span></label>
+        <input type="text" name="pricing" placeholder="e.g. $8/child, Free for members, Call for rates">
+      </div>
+    </div>
+
+    <!-- LISTING TIER -->
+    <div class="form-card">
+      <div class="section-label">Listing Tier</div>
+      <div class="field-group">
+        <div class="tier-grid">
+          <label class="tier-item">
+            <input type="radio" name="listing_tier" value="Basic – $4.95/month" required>
+            <div class="tier-info">
+              <div class="tier-name">🥉 Basic</div>
+              <div class="tier-price">$4.95/month</div>
+              <div class="tier-desc">Name, address, phone, website, hours, and short description.</div>
+            </div>
+          </label>
+          <label class="tier-item">
+            <input type="radio" name="listing_tier" value="Standard – $9.95/month">
+            <div class="tier-info">
+              <div class="tier-name">🥈 Standard</div>
+              <div class="tier-price">$9.95/month</div>
+              <div class="tier-desc">Everything in Basic plus photos and full services list.</div>
+            </div>
+          </label>
+          <label class="tier-item">
+            <input type="radio" name="listing_tier" value="Premium – $19.95/month">
+            <div class="tier-info">
+              <div class="tier-name">⭐ Premium</div>
+              <div class="tier-price">$19.95/month</div>
+              <div class="tier-desc">Everything in Standard plus featured placement and daily deals & specials.</div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="form-card">
+      <div class="section-label">Contact Person</div>
+      <div class="two-col">
+        <div class="field-group">
+          <label>Your Name <span class="required">*</span></label>
+          <input type="text" name="contact_name" placeholder="First and last name" required>
+        </div>
+        <div class="field-group">
+          <label>Best Phone to Reach You</label>
+          <input type="tel" name="contact_phone" placeholder="(319) 000-0000">
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Anything else you'd like us to know? <span class="hint">(optional)</span></label>
+        <textarea name="notes" rows="3" placeholder="Special instructions, questions, additional details..."></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">→ Submit My Listing</button>
+
+    <p class="footer-note">
+      By submitting this form you agree to be listed on Townin' Around.<br>
+      Questions? Contact us at <a href="mailto:admin@towninaround.com">admin@towninaround.com</a> or call <a href="tel:3197500131">319-750-0131</a>
+    </p>
+
+  </form>
+</div>
+
+</body>
+</html>
