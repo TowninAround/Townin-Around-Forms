@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Townin' Around — Community Resource Listing</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1C2B4A; --navy-light: #2D3F5E;
+    --amber: #D4854A; --amber-light: #F0A96B; --amber-pale: #FDF0E6;
+    --cream: #F7F3EE; --warm-white: #FDFAF7;
+    --sage: #7A9E7E; --sage-light: #EBF2EC;
+    --text-dark: #1C2B4A; --text-mid: #5A6A7A; --text-light: #8A9BAB;
+    --border: #E8E0D6; --shadow: 0 4px 24px rgba(28,43,74,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+  .form-banner { background: var(--navy); padding: 36px 32px 32px; position: relative; overflow: hidden; }
+  .form-banner::before { content: ''; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; background: rgba(212,133,74,0.10); border-radius: 50%; }
+  .form-banner::after { content: ''; position: absolute; bottom: -40px; left: 20px; width: 140px; height: 140px; background: rgba(212,133,74,0.06); border-radius: 50%; }
+  .banner-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; position: relative; z-index: 1; }
+  .logo-icon { width: 36px; height: 36px; background: var(--amber); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo-text { font-family: 'Playfair Display', serif; color: white; font-size: 20px; font-weight: 700; }
+  .banner-title { font-family: 'Playfair Display', serif; color: white; font-size: 26px; font-weight: 700; margin-bottom: 8px; position: relative; z-index: 1; }
+  .banner-subtitle { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.5; position: relative; z-index: 1; }
+  .banner-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(122,158,126,0.25); border: 1px solid rgba(122,158,126,0.4); color: #A8D4AC; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 50px; margin-top: 14px; position: relative; z-index: 1; }
+  .form-container { max-width: 640px; margin: 0 auto; padding: 32px 20px 60px; }
+  .info-box { background: var(--sage-light); border: 1px solid #C5DCC7; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #3B6D11; line-height: 1.5; margin-bottom: 16px; }
+  .form-card { background: white; border-radius: 16px; padding: 28px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--amber); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .field-group { margin-bottom: 18px; }
+  .field-group:last-child { margin-bottom: 0; }
+  label { display: block; font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+  label .required { color: var(--amber); margin-left: 2px; }
+  label .hint { font-weight: 400; color: var(--text-light); font-size: 12px; margin-left: 4px; }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"], select, textarea {
+    width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-dark);
+    background: var(--warm-white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(212,133,74,0.12); background: white; }
+  textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .checkbox-item { display: flex; align-items: center; gap: 9px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; transition: all 0.2s; background: var(--warm-white); }
+  .checkbox-item:hover { border-color: var(--amber); background: var(--amber-pale); }
+  .checkbox-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--amber); cursor: pointer; flex-shrink: 0; }
+  .checkbox-item span { font-size: 13px; color: var(--text-dark); font-weight: 500; }
+  .opt-label { display: flex !important; align-items: center; gap: 9px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; transition: all 0.2s; background: var(--warm-white); font-size: 13px; font-weight: 500 !important; color: var(--text-dark); margin-bottom: 8px; }
+  .opt-label:hover { border-color: var(--amber); background: var(--amber-pale); }
+  .opt-label input[type="radio"], .opt-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--amber); cursor: pointer; flex-shrink: 0; }
+  .tier-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .tier-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: var(--warm-white); }
+  .tier-item:hover { border-color: var(--amber); background: var(--amber-pale); }
+  .tier-item input[type="radio"] { width: 17px; height: 17px; accent-color: var(--amber); cursor: pointer; margin-top: 2px; flex-shrink: 0; }
+  .tier-info { flex: 1; }
+  .tier-name { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+  .tier-price { font-size: 13px; color: var(--amber); font-weight: 700; margin-bottom: 3px; }
+  .tier-desc { font-size: 12px; color: var(--text-mid); line-height: 1.4; }
+  .tier-item-featured { border-color: var(--amber) !important; background: var(--amber-pale) !important; }
+  .tier-free-note { background: var(--sage-light); border: 1px solid #C5DCC7; border-radius: 10px; padding: 12px 16px; font-size: 13px; color: #3B6D11; line-height: 1.5; margin-bottom: 14px; }
+  .tier-free-tag { display: inline-block; background: var(--sage); color: white; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 50px; margin-left: 6px; vertical-align: middle; letter-spacing: 0.3px; }
+  .tier-free-inline { display: inline-block; background: var(--sage); color: white; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 50px; margin-left: 6px; vertical-align: middle; letter-spacing: 0.3px; }
+  .tier-badge-best { display: inline-block; background: var(--amber); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px; margin-bottom: 5px; letter-spacing: 0.3px; }
+  .tier-cancel-note { margin-top: 12px; font-size: 12px; color: var(--text-mid); font-weight: 500; text-align: center; }
+  /* old teal tier-card compatibility */
+  .tier-cards { display: flex; flex-direction: column; gap: 10px; }
+  .tier-card { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: var(--warm-white); }
+  .tier-card:hover { border-color: var(--amber); background: var(--amber-pale); }
+  .tier-card:has(input:checked) { border-color: var(--amber); background: var(--amber-pale); }
+  .tier-card input[type="radio"] { width: 17px; height: 17px; accent-color: var(--amber); cursor: pointer; margin-top: 2px; flex-shrink: 0; }
+  .tier-body { flex: 1; }
+  .tier-badge { display: inline-block; background: var(--amber); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px; margin-bottom: 5px; letter-spacing: 0.3px; }
+  .tier-card.featured { border-color: var(--amber) !important; background: var(--amber-pale) !important; }
+  .section-card { background: white; border-radius: 16px; padding: 28px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+  .section-desc { font-size: 13px; color: var(--text-mid); line-height: 1.6; background: var(--sage-light); border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; }
+  .section-num { width: 26px; height: 26px; background: var(--navy); color: white; border-radius: 50%; font-size: 0.72rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+  .field > label { display: block; font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+  .req { color: var(--amber); margin-left: 2px; }
+  .hint { font-size: 12px; color: var(--text-light); margin-bottom: 4px; line-height: 1.5; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .field-error { font-size: 12px; color: #C0392B; margin-top: 4px; display: none; }
+  .field-error.show { display: block; }
+  .input-error { border-color: #C0392B !important; background: #FEF5F5 !important; }
+  .submit-section { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 16px; }
+  .submit-note { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+  .submit-note strong { color: var(--text-dark); }
+  .submit-btn { background: var(--amber); color: white; border: none; padding: 14px 32px; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap; }
+  .submit-btn:hover { background: var(--amber-light); }
+  .submit-btn:active { transform: scale(0.99); }
+  .success-screen { display: none; text-align: center; padding: 3rem 1.5rem; background: white; border: 1px solid var(--border); border-radius: 16px; margin-bottom: 16px; box-shadow: var(--shadow); }
+  .check-circle { width: 64px; height: 64px; background: var(--sage-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+  .check-circle svg { width: 30px; height: 30px; stroke: var(--sage); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .success-screen h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
+  .success-screen p { font-size: 14px; color: var(--text-mid); line-height: 1.7; max-width: 420px; margin: 0 auto; }
+  .site-footer { text-align: center; padding: 2rem 1rem 0; font-size: 12px; color: var(--text-light); line-height: 1.8; }
+  .site-footer a { color: var(--amber); text-decoration: none; }
+  .free-notice { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+  .free-notice-inner { background: var(--sage-light); border: 1px solid #C5DCC7; border-left: 4px solid var(--sage); border-radius: 12px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; margin-bottom: 0; }
+  .notice-icon { width: 32px; height: 32px; flex-shrink: 0; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+  .notice-text strong { display: block; font-size: 13px; font-weight: 700; color: #3B6D11; margin-bottom: 2px; }
+  .notice-text span { font-size: 12px; color: var(--text-mid); line-height: 1.5; }
+  .req-note { font-size: 12px; color: var(--text-mid); margin-bottom: 16px; }
+  .req-note span { color: var(--amber); }
+  @media (max-width: 500px) {
+    .two-col, .field-row, .options-grid, .checkbox-grid { grid-template-columns: 1fr; }
+    .form-banner { padding: 24px 20px; }
+    .form-card, .section-card { padding: 20px; }
+    .submit-section { flex-direction: column; }
+    .submit-btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="form-banner">
+  <div class="banner-logo">
+    <div class="logo-icon">🏘️</div>
+    <span class="logo-text">Townin' Around</span>
+  </div>
+  <div class="banner-title">Community Resource Listing</div>
+  <div class="banner-subtitle">Get your organization listed on Burlington's local discovery platform — completely free, always.</div>
+  <div class="banner-badge">✦ Always free — no cost, ever</div>
+</div>
+
+<div class="form-container">
+  <div class="info-box">
+    🤝 Community resource listings are <strong>completely free on Townin' Around — always.</strong> No promotions, no tiers, no invoices. Ever.
+  </div>
+<div class="req-note-wrap"><p class="req-note" style="margin-top:1.5rem;"><span>*</span> Required field</p>
+  <form id="listing-form" novalidate>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">1</div><div class="section-title">Contact &amp; Account Information</div></div>
+      <div class="field-row">
+        <div class="field"><label>Organization name <span class="req">*</span></label><input type="text" name="business_name" placeholder="Your organization name" required><div class="field-error">Please enter your organization name</div></div>
+        <div class="field"><label>Primary contact name <span class="req">*</span></label><input type="text" name="contact_name" placeholder="First and last name" required><div class="field-error">Please enter a contact name</div></div>
+      </div>
+      <div class="field"><label>Title / role</label><input type="text" name="title" placeholder="e.g. Executive Director, Program Coordinator, Volunteer Manager"></div>
+      <div class="field-row">
+        <div class="field"><label>Phone number <span class="req">*</span></label><input type="tel" name="phone" placeholder="(319) 000-0000" required><div class="field-error">Please enter a phone number</div></div>
+        <div class="field"><label>Email address <span class="req">*</span></label><input type="email" name="email" placeholder="you@example.com" required><div class="field-error">Please enter a valid email</div></div>
+      </div>
+      <div class="field"><label>Billing email</label><div class="hint">Leave blank if same as above</div><input type="email" name="billing_email" placeholder="billing@example.com"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">2</div><div class="section-title">Organization Type</div></div>
+      <div class="field">
+        <label>What type of organization are you? <span class="req">*</span></label>
+        <div class="hint">Select all that apply</div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Nonprofit / 501(c)(3)"> Nonprofit / 501(c)(3)</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Government agency"> Government agency</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Social services"> Social services</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Food assistance"> Food assistance</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Housing assistance"> Housing assistance</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Mental health services"> Mental health services</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Substance abuse / recovery"> Substance abuse / recovery</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Domestic violence support"> Domestic violence support</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Veterans services"> Veterans services</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Senior services"> Senior services</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Youth services"> Youth services</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Disability services"> Disability services</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Employment / workforce development"> Employment / workforce</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Legal aid"> Legal aid</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Community center"> Community center</label>
+          <label class="opt-label"><input type="checkbox" name="org_type" value="Other"> Other</label>
+        </div>
+        <div class="field-error" id="org-type-error">Please select at least one type</div>
+      </div>
+      <div class="field"><label>If other, please describe</label><input type="text" name="org_type_other" placeholder="Your answer"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">3</div><div class="section-title">Location &amp; Hours</div></div>
+      <div class="field"><label>Street address <span class="req">*</span></label><input type="text" name="address" placeholder="123 Main St" required><div class="field-error">Please enter your address</div></div>
+      <div class="field-row">
+        <div class="field"><label>City <span class="req">*</span></label><input type="text" name="city" placeholder="Burlington" required><div class="field-error">Required</div></div>
+        <div class="field"><label>State &amp; ZIP <span class="req">*</span></label><input type="text" name="state_zip" placeholder="IA 52601" required><div class="field-error">Required</div></div>
+      </div>
+      <div class="field"><label>Service area</label><div class="hint">If you serve beyond Burlington, list counties or region</div><input type="text" name="service_area" placeholder="e.g. Des Moines County, Southeast Iowa"></div>
+      <div class="field"><label>Hours of operation <span class="req">*</span></label><textarea name="hours" placeholder="Mon-Fri: 8am-5pm&#10;Sat-Sun: Closed" required></textarea><div class="field-error">Please enter your hours</div></div>
+      <div class="field"><label>Walk-in availability</label>
+        <div class="options-list">
+          <label class="opt-label"><input type="radio" name="walkin" value="Walk-ins welcome during business hours"> Walk-ins welcome during business hours</label>
+          <label class="opt-label"><input type="radio" name="walkin" value="Appointment required"> Appointment required</label>
+          <label class="opt-label"><input type="radio" name="walkin" value="Call first"> Call first</label>
+          <label class="opt-label"><input type="radio" name="walkin" value="Crisis line available 24/7"> Crisis line available 24/7</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">4</div><div class="section-title">Online Presence</div></div>
+      <div class="field"><label>Website URL</label><input type="text" name="website" placeholder="https://www.yourorganization.org"></div>
+      <div class="field-row">
+        <div class="field"><label>Facebook page URL</label><input type="text" name="facebook" placeholder="https://facebook.com/yourpage"></div>
+        <div class="field"><label>Instagram handle</label><input type="text" name="instagram" placeholder="@yourhandle"></div>
+      </div>
+      <div class="field"><label>Other social media or hotline</label><input type="text" name="other_social" placeholder="e.g. Crisis line: 1-800-XXX-XXXX"></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">5</div><div class="section-title">About Your Organization</div></div>
+      <div class="field"><label>Description <span class="req">*</span></label><div class="hint">What does your organization do? Who do you serve? How do people access your services? (2-4 sentences)</div><textarea name="description" placeholder="Tell the community what you do and who you serve..." required></textarea><div class="field-error">Please enter a description</div></div>
+      <div class="field"><label>Who do you serve?</label><div class="hint">Select all that apply</div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" name="population" value="Children & families"> Children &amp; families</label>
+          <label class="opt-label"><input type="checkbox" name="population" value="Seniors"> Seniors</label>
+          <label class="opt-label"><input type="checkbox" name="population" value="Veterans"> Veterans</label>
+          <label class="opt-label"><input type="checkbox" name="population" value="Individuals in crisis"> Individuals in crisis</label>
+          <label class="opt-label"><input type="checkbox" name="population" value="People experiencing homelessness"> People experiencing homelessness</label>
+          <label class="opt-label"><input type="checkbox" name="population" value="Individuals with disabilities"> Individuals with disabilities</label>
+          <label class="opt-label"><input type="checkbox" name="population" value="Survivors of domestic violence"> Survivors of domestic violence</label>
+          <label class="opt-label"><input type="checkbox" name="population" value="Anyone in the community"> Anyone in the community</label>
+        </div>
+      </div>
+      <div class="field"><label>Keywords / tags</label><div class="hint">e.g. food pantry, free services, emergency assistance, mental health, job training</div><input type="text" name="tags" placeholder="food pantry, free, emergency assistance..."></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">6</div><div class="section-title">Services &amp; Programs</div></div>
+      <div class="field"><label>List your top 5 services or programs <span class="req">*</span></label><div class="hint">These will appear on your listing</div><textarea name="services" placeholder="e.g. Emergency food assistance, Utility bill help, Housing referrals, Case management, Job placement..." required></textarea><div class="field-error">Please list your services</div></div>
+      <div class="field"><label>Do you have a full resource guide or services list you would like included?</label><div class="hint">If yes, email it to admin@towninaround.com after submitting.</div>
+        <div class="options-list">
+          <label class="opt-label"><input type="radio" name="full_menu" value="Yes - I will email our full resource guide"> Yes - I will email our full resource guide</label>
+          <label class="opt-label"><input type="radio" name="full_menu" value="No - top 5 is fine"> No - top 5 is fine</label>
+        </div>
+      </div>
+      <div class="field"><label>Are your services free?</label>
+        <div class="options-list">
+          <label class="opt-label"><input type="radio" name="cost" value="Yes - all services are free"> Yes - all services are free</label>
+          <label class="opt-label"><input type="radio" name="cost" value="Some services are free, some have fees"> Some services are free, some have fees</label>
+          <label class="opt-label"><input type="radio" name="cost" value="Sliding scale based on income"> Sliding scale based on income</label>
+          <label class="opt-label"><input type="radio" name="cost" value="Standard fees apply"> Standard fees apply</label>
+        </div>
+      </div>
+      <div class="field"><label>Upcoming events or programs</label><div class="hint">List anything you'd like highlighted — drives, open enrollment, special events</div><textarea name="events" style="min-height:64px;" placeholder="e.g. Back to school supply drive August 1-15, Open enrollment for heating assistance starts October 1..."></textarea></div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">7</div><div class="section-title">Photos &amp; Branding</div></div>
+      <div class="field"><label>Do you have a logo or photos to include?</label>
+        <div class="options-list">
+          <label class="opt-label"><input type="radio" name="photos" value="Yes - will email"> Yes - I'll email them to admin@towninaround.com</label>
+          <label class="opt-label"><input type="radio" name="photos" value="No - not at this time"> No - not at this time</label>
+          <label class="opt-label"><input type="radio" name="photos" value="I would like help with that"> I'd like help with that</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">8</div><div class="section-title">Your Listing is Free</div></div>
+      <div style="background:var(--teal-light);border-left:4px solid var(--teal);border-radius:var(--radius-sm);padding:1rem 1.25rem;font-size:0.875rem;color:var(--gray-900);line-height:1.6;">
+        &#127881; <strong>No charge — ever.</strong> Community resource listings are completely free on Townin' Around. Your listing includes your organization name, address, phone, website, hours, description, photos, and social links.
+      </div>
+    </div>
+
+    <div class="submit-section">
+      <div class="submit-note"><strong>Ready to go?</strong><br>Questions? Call or text Dawn at <a href="tel:3197500131" style="color:var(--amber);">319-750-0131</a></div>
+      <button type="submit" class="submit-btn">Submit listing &#8594;</button>
+    </div>
+
+  </form>
+
+  <div class="success-screen" id="success-screen">
+    <div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h2>You're on the list!</h2>
+    <p>Thank you for joining Townin' Around! I'll be in touch shortly to confirm your listing details.<br><br>
+    If you have a logo, photos, or a resource guide to share, please email them to <strong>admin@towninaround.com</strong>.<br><br>
+    &#8212; Dawn, Townin' Around</p>
+  </div>
+
+</div>
+<div class="site-footer">
+  <a href="https://towninaround.com">towninaround.com</a> &nbsp;&middot;&nbsp;
+  <a href="mailto:admin@towninaround.com">admin@towninaround.com</a> &nbsp;&middot;&nbsp;
+  <a href="tel:3197500131">319-750-0131</a>
+</div>
+<script>
+document.getElementById("listing-form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  var valid = true;
+  this.querySelectorAll("input[required], textarea[required]").forEach(function(input) {
+    var field = input.closest(".field");
+    var err = field ? field.querySelector(".field-error") : null;
+    if (!input.value.trim()) {
+      input.classList.add("input-error");
+      if (err) err.classList.add("show");
+      valid = false;
+    } else {
+      input.classList.remove("input-error");
+      if (err) err.classList.remove("show");
+    }
+  });
+  var orgChecked = document.querySelectorAll("input[name=org_type]:checked");
+  if (orgChecked.length === 0) {
+    document.getElementById("org-type-error").classList.add("show");
+    valid = false;
+  } else {
+    document.getElementById("org-type-error").classList.remove("show");
+  }
+
+  if (!valid) return;
+  var data = new FormData(this);
+  ["org_type","population"].forEach(function(name) {
+    var vals = [];
+    document.querySelectorAll("input[name=" + name + "]:checked").forEach(function(i){ vals.push(i.value); });
+    data.set(name, vals.join(", ") || "None selected");
+  });
+  var btn = this.querySelector(".submit-btn");
+  btn.textContent = "Submitting...";
+  btn.disabled = true;
+  try {
+    var res = await fetch("https://formspree.io/f/xpqonade", { method: "POST", body: data, headers: { "Accept": "application/json" } });
+    if (res.ok) {
+      document.getElementById("listing-form").style.display = "none";
+      var s = document.getElementById("success-screen");
+      s.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      btn.textContent = "Submit listing →"; btn.disabled = false;
+      alert("Something went wrong. Please email admin@towninaround.com directly.");
+    }
+  } catch(err) {
+    btn.textContent = "Submit listing →"; btn.disabled = false;
+    alert("Something went wrong. Please email admin@towninaround.com directly.");
+  }
+});
+</script>
+</body>
+</html>
