@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Townin' Around — Shopping &amp; Retail Listing</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1C2B4A; --navy-light: #2D3F5E;
+    --amber: #D4854A; --amber-light: #F0A96B; --amber-pale: #FDF0E6;
+    --cream: #F7F3EE; --warm-white: #FDFAF7;
+    --sage: #7A9E7E; --sage-light: #EBF2EC;
+    --text-dark: #1C2B4A; --text-mid: #5A6A7A; --text-light: #8A9BAB;
+    --border: #E8E0D6; --shadow: 0 4px 24px rgba(28,43,74,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+
+  .form-banner { background: var(--navy); padding: 36px 32px 32px; position: relative; overflow: hidden; }
+  .form-banner::before { content: ''; position: absolute; top: -60px; right: -60px; width: 220px; height: 220px; background: rgba(212,133,74,0.10); border-radius: 50%; }
+  .form-banner::after { content: ''; position: absolute; bottom: -40px; left: 20px; width: 140px; height: 140px; background: rgba(212,133,74,0.06); border-radius: 50%; }
+  .banner-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; position: relative; z-index: 1; }
+  .logo-icon { width: 36px; height: 36px; background: var(--amber); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo-text { font-family: 'Playfair Display', serif; color: white; font-size: 20px; font-weight: 700; }
+  .banner-title { font-family: 'Playfair Display', serif; color: white; font-size: 26px; font-weight: 700; margin-bottom: 8px; position: relative; z-index: 1; }
+  .banner-subtitle { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.5; position: relative; z-index: 1; }
+  .banner-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(122,158,126,0.25); border: 1px solid rgba(122,158,126,0.4); color: #A8D4AC; font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 50px; margin-top: 14px; position: relative; z-index: 1; }
+
+  .form-container { max-width: 640px; margin: 0 auto; padding: 32px 20px 60px; }
+
+  .info-box { background: var(--sage-light); border: 1px solid #C5DCC7; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #3B6D11; line-height: 1.5; margin-bottom: 16px; }
+
+  .req-note { font-size: 12px; color: var(--text-mid); margin-bottom: 16px; }
+  .req-note span { color: var(--amber); }
+
+  .section-card { background: white; border-radius: 16px; padding: 28px; margin-bottom: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+  .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--amber); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .section-num { width: 26px; height: 26px; background: var(--navy); color: white; border-radius: 50%; font-size: 0.72rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .section-desc { font-size: 13px; color: var(--text-mid); line-height: 1.6; background: var(--sage-light); border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; }
+
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+  .field > label { display: block; font-size: 13px; font-weight: 600; color: var(--text-dark); margin-bottom: 6px; }
+  .req { color: var(--amber); margin-left: 2px; }
+  .hint { font-size: 12px; color: var(--text-light); margin-bottom: 4px; line-height: 1.5; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"], select, textarea {
+    width: 100%; padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text-dark);
+    background: var(--warm-white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; appearance: none;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(212,133,74,0.12); background: white; }
+  textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
+
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .opt-label { display: flex !important; align-items: center; gap: 9px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; transition: all 0.2s; background: var(--warm-white); font-size: 13px; font-weight: 500 !important; color: var(--text-dark); margin-bottom: 8px; }
+  .opt-label:hover { border-color: var(--amber); background: var(--amber-pale); }
+  .opt-label input[type="radio"], .opt-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--amber); cursor: pointer; flex-shrink: 0; }
+
+  .tier-cards { display: flex; flex-direction: column; gap: 10px; }
+  .tier-card { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: var(--warm-white); }
+  .tier-card:hover { border-color: var(--amber); background: var(--amber-pale); }
+  .tier-card input[type="radio"] { width: 17px; height: 17px; accent-color: var(--amber); cursor: pointer; margin-top: 2px; flex-shrink: 0; }
+  .tier-body { flex: 1; }
+  .tier-name { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+  .tier-price { font-size: 13px; color: var(--amber); font-weight: 700; margin-bottom: 3px; }
+  .tier-desc { font-size: 12px; color: var(--text-mid); line-height: 1.4; }
+  .tier-badge { display: inline-block; background: var(--amber); color: white; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 50px; margin-bottom: 5px; letter-spacing: 0.3px; }
+  .tier-card.featured { border-color: var(--amber) !important; background: var(--amber-pale) !important; }
+  .tier-free-inline { display: inline-block; background: var(--sage); color: white; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 50px; margin-left: 6px; vertical-align: middle; letter-spacing: 0.3px; }
+
+  .field-error { font-size: 12px; color: #C0392B; margin-top: 4px; display: none; }
+  .field-error.show { display: block; }
+  .input-error { border-color: #C0392B !important; background: #FEF5F5 !important; }
+
+  .submit-section { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 24px 28px; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 16px; }
+  .submit-note { font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+  .submit-note strong { color: var(--text-dark); }
+  .submit-btn { background: var(--amber); color: white; border: none; padding: 14px 32px; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.1s; white-space: nowrap; }
+  .submit-btn:hover { background: var(--amber-light); }
+  .submit-btn:active { transform: scale(0.99); }
+  .submit-btn:disabled { background: #C4B8AC; cursor: not-allowed; }
+
+  .success-screen { display: none; text-align: center; padding: 3rem 1.5rem; background: white; border: 1px solid var(--border); border-radius: 16px; margin-bottom: 16px; box-shadow: var(--shadow); }
+  .check-circle { width: 64px; height: 64px; background: var(--sage-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+  .check-circle svg { width: 30px; height: 30px; stroke: var(--sage); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .success-screen h2 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
+  .success-screen p { font-size: 14px; color: var(--text-mid); line-height: 1.7; max-width: 420px; margin: 0 auto; }
+  .success-screen a { color: var(--amber); text-decoration: none; font-weight: 600; }
+
+  .site-footer { text-align: center; padding: 2rem 1rem 0; font-size: 12px; color: var(--text-light); line-height: 1.8; }
+  .site-footer a { color: var(--amber); text-decoration: none; }
+
+  @media (max-width: 500px) {
+    .field-row, .options-grid { grid-template-columns: 1fr; }
+    .form-banner { padding: 24px 20px; }
+    .section-card { padding: 20px; }
+    .submit-section { flex-direction: column; }
+    .submit-btn { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="form-banner">
+  <div class="banner-logo">
+    <div class="logo-icon">🛍️</div>
+    <span class="logo-text">Townin' Around</span>
+  </div>
+  <div class="banner-title">Shopping &amp; Retail Listing</div>
+  <div class="banner-subtitle">Get your shop or retail business listed on Burlington's local discovery platform and connect with local shoppers.</div>
+  <div class="banner-badge">✦ Free through May 31st — no credit card needed</div>
+</div>
+
+<div class="form-container">
+
+  <div class="info-box">
+    🎉 Listings are <strong>FREE through May 31st, 2026</strong> — no credit card, no commitment, no strings.
+  </div>
+
+  <p class="req-note"><span>*</span> Required field</p>
+
+  <form id="listing-form" novalidate>
+
+    <!-- SECTION 1: CONTACT -->
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">1</div>Contact &amp; Account Information</div>
+      <div class="field-row">
+        <div class="field">
+          <label>Business name <span class="req">*</span></label>
+          <input type="text" name="business_name" placeholder="Your business name" required>
+          <div class="field-error">Please enter your business name</div>
+        </div>
+        <div class="field">
+          <label>Primary contact name <span class="req">*</span></label>
+          <input type="text" name="contact_name" placeholder="First and last name" required>
+          <div class="field-error">Please enter a contact name</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Title / role</label>
+        <input type="text" name="title" placeholder="e.g. Owner, Manager">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Phone number <span class="req">*</span></label>
+          <input type="tel" name="phone" placeholder="(319) 000-0000" required>
+          <div class="field-error">Please enter a phone number</div>
+        </div>
+        <div class="field">
+          <label>Email address <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="you@example.com" required>
+          <div class="field-error">Please enter a valid email</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Billing email</label>
+        <div class="hint">Leave blank if same as above</div>
+        <input type="email" name="billing_email" placeholder="billing@example.com">
+      </div>
+    </div>
+
+    <!-- SECTION 2: BUSINESS TYPE -->
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">2</div>Business Type</div>
+      <div class="section-desc">This helps us display your listing accurately and connect you with the right customers.</div>
+      <div class="field">
+        <label>Which best describes your business? <span class="req">*</span></label>
+        <label class="opt-label"><input type="radio" name="business_type" value="Brick and mortar store"> Brick and mortar store</label>
+        <label class="opt-label"><input type="radio" name="business_type" value="Home-based business (selling handmade or custom products)"> Home-based business (selling handmade or custom products)</label>
+        <label class="opt-label"><input type="radio" name="business_type" value="Online shop with local pickup available"> Online shop with local pickup available</label>
+        <label class="opt-label"><input type="radio" name="business_type" value="Pop-up / market vendor"> Pop-up / market vendor</label>
+        <label class="opt-label"><input type="radio" name="business_type" value="Other"> Other</label>
+        <div class="field-error" id="business-type-error">Please select a business type</div>
+      </div>
+      <div class="field">
+        <label>If other, please describe</label>
+        <input type="text" name="business_type_other" placeholder="Your answer">
+      </div>
+    </div>
+
+    <!-- SECTION 3: LOCATION & HOURS -->
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">3</div>Location &amp; Hours</div>
+      <div class="field">
+        <label>Street address</label>
+        <div class="hint">Leave blank if you are a home-based business and prefer not to list your address</div>
+        <input type="text" name="address" placeholder="123 Main St">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>City <span class="req">*</span></label>
+          <input type="text" name="city" placeholder="Burlington" required>
+          <div class="field-error">Required</div>
+        </div>
+        <div class="field">
+          <label>State &amp; ZIP <span class="req">*</span></label>
+          <input type="text" name="state_zip" placeholder="IA 52601" required>
+          <div class="field-error">Required</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>How do customers shop with you?</label>
+        <div class="hint">Select all that apply</div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" name="shop_method" value="In-store / storefront"> In-store / storefront</label>
+          <label class="opt-label"><input type="checkbox" name="shop_method" value="Online orders"> Online orders</label>
+          <label class="opt-label"><input type="checkbox" name="shop_method" value="Local pickup"> Local pickup</label>
+          <label class="opt-label"><input type="checkbox" name="shop_method" value="Local delivery"> Local delivery</label>
+          <label class="opt-label"><input type="checkbox" name="shop_method" value="Farmers market / pop-up events"> Farmers market / pop-up events</label>
+          <label class="opt-label"><input type="checkbox" name="shop_method" value="By appointment only"> By appointment only</label>
+          <label class="opt-label"><input type="checkbox" name="shop_method" value="Ships nationwide"> Ships nationwide</label>
+          <label class="opt-label"><input type="checkbox" name="shop_method" value="Custom / made-to-order"> Custom / made-to-order</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Business hours</label>
+        <div class="hint">List hours for each day you are open or available. Leave blank if by appointment or varies.</div>
+        <textarea name="hours" placeholder="Mon-Fri: 10am-6pm&#10;Sat: 10am-4pm&#10;Sun: Closed"></textarea>
+      </div>
+      <div class="field">
+        <label>Holiday, seasonal, or market schedule</label>
+        <div class="hint">List upcoming markets, pop-ups, or seasonal hours if applicable</div>
+        <textarea name="seasonal_hours" style="min-height:64px;" placeholder="e.g. Burlington Farmers Market every Saturday May-October"></textarea>
+      </div>
+    </div>
+
+    <!-- SECTION 4: ONLINE PRESENCE -->
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">4</div>Online Presence</div>
+      <div class="field">
+        <label>Website or online shop URL</label>
+        <input type="text" name="website" placeholder="https://www.yourshop.com">
+      </div>
+      <div class="field">
+        <label>Etsy, Amazon Handmade, or other marketplace URL</label>
+        <input type="text" name="marketplace_url" placeholder="https://etsy.com/shop/yourshop">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Facebook page URL</label>
+          <input type="text" name="facebook" placeholder="https://facebook.com/yourpage">
+        </div>
+        <div class="field">
+          <label>Instagram handle</label>
+          <input type="text" name="instagram" placeholder="@yourhandle">
+        </div>
+      </div>
+      <div class="field">
+        <label>Other social media</label>
+        <div class="hint">TikTok, Pinterest, X, YouTube, etc.</div>
+        <input type="text" name="other_social" placeholder="e.g. TikTok: @yourhandle">
+      </div>
+    </div>
+
+    <!-- SECTION 5: ABOUT -->
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">5</div>About Your Business</div>
+      <div class="field">
+        <label>Business description <span class="req">*</span></label>
+        <div class="hint">What do you sell? Who do you make it for? What makes your shop unique? (2-4 sentences)</div>
+        <textarea name="description" placeholder="Tell customers what makes your shop special..." required></textarea>
+        <div class="field-error">Please enter a business description</div>
+      </div>
+      <div class="field">
+        <label>What type of products do you carry or make? <span class="req">*</span></label>
+        <div class="hint">e.g. handmade jewelry, vintage clothing, candles, custom mugs, boutique gifts, home decor</div>
+        <input type="text" name="product_types" placeholder="Your answer" required>
+        <div class="field-error">Please enter your product types</div>
+      </div>
+      <div class="field">
+        <label>Do you specialize in any of the following?</label>
+        <div class="hint">Select all that apply</div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" name="specialty" value="Handmade / handcrafted"> Handmade / handcrafted</label>
+          <label class="opt-label"><input type="checkbox" name="specialty" value="Custom / personalized orders"> Custom / personalized orders</label>
+          <label class="opt-label"><input type="checkbox" name="specialty" value="Locally made or sourced"> Locally made or sourced</label>
+          <label class="opt-label"><input type="checkbox" name="specialty" value="Vintage or antique"> Vintage or antique</label>
+          <label class="opt-label"><input type="checkbox" name="specialty" value="Resale / consignment"> Resale / consignment</label>
+          <label class="opt-label"><input type="checkbox" name="specialty" value="Wholesale available"> Wholesale available</label>
+          <label class="opt-label"><input type="checkbox" name="specialty" value="Eco-friendly / sustainable"> Eco-friendly / sustainable</label>
+          <label class="opt-label"><input type="checkbox" name="specialty" value="Faith-based or inspirational"> Faith-based or inspirational</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Keywords / tags</label>
+        <div class="hint">Words someone might search to find you - e.g. gifts, tumblers, wood signs, pet portraits, sublimation</div>
+        <input type="text" name="tags" placeholder="gifts, custom tumblers, wood signs...">
+      </div>
+    </div>
+
+    <!-- SECTION 6: PRODUCTS & SERVICES -->
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">6</div>Products &amp; Services</div>
+      <div class="field">
+        <label>Do you offer any of the following?</label>
+        <div class="hint">Select all that apply</div>
+        <div class="options-grid">
+          <label class="opt-label"><input type="checkbox" name="offerings" value="Gift wrapping"> Gift wrapping</label>
+          <label class="opt-label"><input type="checkbox" name="offerings" value="Gift cards"> Gift cards</label>
+          <label class="opt-label"><input type="checkbox" name="offerings" value="Custom orders / personalization"> Custom orders / personalization</label>
+          <label class="opt-label"><input type="checkbox" name="offerings" value="Wholesale / bulk orders"> Wholesale / bulk orders</label>
+          <label class="opt-label"><input type="checkbox" name="offerings" value="Layaway"> Layaway</label>
+          <label class="opt-label"><input type="checkbox" name="offerings" value="Loyalty / rewards program"> Loyalty / rewards program</label>
+          <label class="opt-label"><input type="checkbox" name="offerings" value="Corporate or event gifting"> Corporate or event gifting</label>
+          <label class="opt-label"><input type="checkbox" name="offerings" value="Vendor / consignment space available"> Vendor / consignment space available</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Any brands, product lines, or items you want to highlight?</label>
+        <textarea name="highlights" style="min-height:72px;" placeholder="e.g. We carry Stanley cups, custom Cricut designs, local honey..."></textarea>
+      </div>
+      <div class="field">
+        <label>Typical price range</label>
+        <label class="opt-label"><input type="radio" name="price_range" value="Under $25"> Under $25</label>
+        <label class="opt-label"><input type="radio" name="price_range" value="$25 - $75"> $25 - $75</label>
+        <label class="opt-label"><input type="radio" name="price_range" value="$75 - $150"> $75 - $150</label>
+        <label class="opt-label"><input type="radio" name="price_range" value="$150+"> $150+</label>
+        <label class="opt-label"><input type="radio" name="price_range" value="Varies widely"> Varies widely</label>
+      </div>
+    </div>
+
+    <!-- SECTION 7: PHOTOS -->
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">7</div>Photos &amp; Branding</div>
+      <div class="field">
+        <label>Do you have a logo or product photos to include?</label>
+        <label class="opt-label"><input type="radio" name="photos" value="Yes - will email"> Yes - I'll email them to admin@towninaround.com</label>
+        <label class="opt-label"><input type="radio" name="photos" value="No - not at this time"> No - not at this time</label>
+        <label class="opt-label"><input type="radio" name="photos" value="I would like help with that"> I'd like help with that</label>
+      </div>
+    </div>
+
+    <!-- SECTION 8: TIER -->
+    <div class="section-card">
+      <div class="section-label"><div class="section-num">8</div>Select Your Listing Tier</div>
+      <div class="section-desc">All tiers are FREE through May 31st, 2026. Pick the plan that fits — you won't be charged until after the free period ends, and only if you choose to continue.</div>
+      <div class="field">
+        <label>Which tier would you like? <span class="req">*</span></label>
+        <div class="tier-cards">
+          <label class="tier-card">
+            <input type="radio" name="tier" value="Basic - $4.95/mo">
+            <div class="tier-body">
+              <div class="tier-name">Basic <span class="tier-free-inline">FREE until May 31</span></div>
+              <div class="tier-price">$4.95 / month</div>
+              <div class="tier-desc">Business name, address, phone, website, hours, and short description. Everything a customer needs to find you.</div>
+            </div>
+          </label>
+          <label class="tier-card">
+            <input type="radio" name="tier" value="Standard - $9.95/mo">
+            <div class="tier-body">
+              <div class="tier-name">Standard <span class="tier-free-inline">FREE until May 31</span></div>
+              <div class="tier-price">$9.95 / month</div>
+              <div class="tier-desc">Everything in Basic, plus up to 5 photos, your full products list, and social media links.</div>
+            </div>
+          </label>
+          <label class="tier-card featured">
+            <input type="radio" name="tier" value="Premium - $19.95/mo">
+            <div class="tier-body">
+              <div class="tier-badge">Most Popular</div>
+              <div class="tier-name">Premium <span class="tier-free-inline">FREE until May 31</span></div>
+              <div class="tier-price">$19.95 / month</div>
+              <div class="tier-desc">Everything in Standard, plus up to 10 photos, post daily deals &amp; specials, and a lead capture form so customers can contact you directly.</div>
+            </div>
+          </label>
+        </div>
+        <div class="field-error" id="tier-error">Please select a tier</div>
+        <div style="margin-top:10px;font-size:0.78rem;color:#5A6A7A;text-align:center;">&#10003; No credit card needed now &nbsp;&nbsp; &#10003; I'll reach out in mid-May &nbsp;&nbsp; &#10003; Cancel anytime</div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-section">
+      <div class="submit-note"><strong>Ready to go?</strong><br>Questions? Call or text Dawn at <a href="tel:3197500131" style="color:var(--amber);">319-750-0131</a></div>
+      <button type="submit" class="submit-btn">Submit listing &#8594;</button>
+    </div>
+
+  </form>
+
+  <div class="success-screen" id="success-screen">
+    <div class="check-circle"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h2>You're on the list!</h2>
+    <p>Thank you for joining Townin' Around! I'll be in touch shortly to confirm your listing details.<br><br>
+    If you have a logo or product photos, please email them to <strong><a href="mailto:admin@towninaround.com">admin@towninaround.com</a></strong>.<br><br>
+    &#8212; Dawn, Townin' Around</p>
+  </div>
+
+</div>
+
+<div class="site-footer">
+  <a href="https://towninaround.com">towninaround.com</a> &nbsp;&middot;&nbsp;
+  <a href="mailto:admin@towninaround.com">admin@towninaround.com</a> &nbsp;&middot;&nbsp;
+  <a href="tel:3197500131">319-750-0131</a>
+</div>
+
+<script>
+document.getElementById("listing-form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  var valid = true;
+  var firstError = null;
+
+  // Validate required text/email/tel/textarea fields
+  this.querySelectorAll("input[required], textarea[required]").forEach(function(input) {
+    var field = input.closest(".field");
+    var err = field ? field.querySelector(".field-error") : null;
+    if (!input.value.trim()) {
+      input.classList.add("input-error");
+      if (err) err.classList.add("show");
+      if (!firstError) firstError = input;
+      valid = false;
+    } else {
+      input.classList.remove("input-error");
+      if (err) err.classList.remove("show");
+    }
+  });
+
+  // Validate business type radio
+  if (!document.querySelector("input[name=business_type]:checked")) {
+    document.getElementById("business-type-error").classList.add("show");
+    if (!firstError) firstError = document.getElementById("business-type-error");
+    valid = false;
+  } else {
+    document.getElementById("business-type-error").classList.remove("show");
+  }
+
+  // Validate tier selection
+  if (!document.querySelector("input[name=tier]:checked")) {
+    document.getElementById("tier-error").classList.add("show");
+    if (!firstError) firstError = document.getElementById("tier-error");
+    valid = false;
+  } else {
+    document.getElementById("tier-error").classList.remove("show");
+  }
+
+  if (!valid) {
+    if (firstError) firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+
+  // Build FormData and combine checkbox values
+  var data = new FormData(this);
+  var checkboxFields = ["shop_method", "specialty", "offerings"];
+  checkboxFields.forEach(function(name) {
+    var checked = [];
+    document.querySelectorAll("input[name=" + name + "]:checked").forEach(function(i){ checked.push(i.value); });
+    data.delete(name);
+    data.set(name, checked.join(", ") || "None selected");
+  });
+
+  var btn = this.querySelector(".submit-btn");
+  var originalText = btn.textContent;
+  btn.textContent = "Submitting...";
+  btn.disabled = true;
+
+  try {
+    var res = await fetch("https://formspree.io/f/xpqonade", {
+      method: "POST",
+      body: data,
+      headers: { "Accept": "application/json" }
+    });
+    if (res.ok) {
+      document.getElementById("listing-form").style.display = "none";
+      document.getElementById("success-screen").style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      alert("Something went wrong submitting the form. Please try again, or call Dawn directly at 319-750-0131.");
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }
+  } catch (err) {
+    alert("Network error. Please check your connection and try again, or call Dawn at 319-750-0131.");
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
+});
+</script>
+
+</body>
+</html>
