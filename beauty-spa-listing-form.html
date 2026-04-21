@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beauty &amp; Personal Care Listing — Townin' Around</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F7F3EE;
+    --warm-white: #FDFAF7;
+    --navy: #1C2B4A;
+    --navy-light: #2D3F5E;
+    --amber: #D4854A;
+    --amber-light: #F0A96B;
+    --amber-pale: #FDF0E6;
+    --sage: #7A9E7E;
+    --sage-light: #EBF2EC;
+    --text-dark: #1C2B4A;
+    --text-mid: #5A6A7A;
+    --text-light: #8A9BAB;
+    --border: #E8E0D6;
+    --shadow-warm: 0 2px 16px rgba(28,43,74,0.08);
+    --shadow-card: 0 4px 24px rgba(28,43,74,0.10);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    color: var(--warm-white);
+    padding: 28px 24px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header-decor {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 180px;
+    height: 180px;
+    background: var(--navy-light);
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .header-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--amber);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .header-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    max-width: 560px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .free-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(122,158,126,0.22);
+    color: #B8D4BB;
+    border: 1px solid rgba(122,158,126,0.4);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* FORM CONTAINER */
+  .form-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  .free-banner {
+    background: var(--sage-light);
+    border: 1px solid #C8DDCC;
+    color: #3D5C42;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .free-banner strong { color: #2E4631; }
+
+  /* SECTIONS */
+  .section {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 22px 24px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-warm);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--amber);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+
+  /* FIELDS */
+  .field { margin-bottom: 16px; }
+  .field:last-child { margin-bottom: 0; }
+
+  .field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+  }
+
+  .field-label .req { color: var(--amber); }
+
+  .field-label .optional {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 400;
+    text-transform: lowercase;
+    margin-left: 4px;
+  }
+
+  .field-label .hint {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  .field-input,
+  .field-select,
+  .field-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text-dark);
+    transition: border 0.15s, box-shadow 0.15s;
+  }
+
+  .field-input:focus,
+  .field-select:focus,
+  .field-textarea:focus {
+    outline: none;
+    border-color: var(--amber);
+    box-shadow: 0 0 0 3px rgba(212,133,74,0.15);
+  }
+
+  .field-input::placeholder,
+  .field-textarea::placeholder { color: var(--text-light); }
+
+  .field-textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.5;
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  @media (max-width: 520px) {
+    .field-row { grid-template-columns: 1fr; }
+  }
+
+  /* CHECKBOX / RADIO GRID */
+  .option-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  @media (max-width: 520px) {
+    .option-grid { grid-template-columns: 1fr; }
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+
+  .option:hover {
+    border-color: var(--amber-light);
+    background: var(--amber-pale);
+  }
+
+  .option input { margin: 0; accent-color: var(--amber); }
+
+  .option-full { grid-column: 1 / -1; }
+
+  /* HOURS GRID */
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 10px 12px;
+    align-items: center;
+  }
+
+  .day-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-mid);
+  }
+
+  /* TIER CARDS */
+  .tier-banner {
+    background: var(--sage-light);
+    border: 1px solid #C8DDCC;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    color: #3D5C42;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .tier-banner strong { color: #2E4631; }
+
+  .tier-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tier {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+
+  .tier:hover {
+    border-color: var(--amber-light);
+    background: var(--amber-pale);
+  }
+
+  .tier input[type="radio"] {
+    margin-top: 2px;
+    accent-color: var(--amber);
+  }
+
+  .tier.featured {
+    border-color: var(--amber);
+    background: var(--amber-pale);
+  }
+
+  .tier-content { flex: 1; }
+
+  .tier-top {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .tier-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .tier-price {
+    font-size: 13px;
+    color: var(--text-mid);
+  }
+
+  .tier-free-tag {
+    background: var(--sage);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tier-desc {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+
+  .tier-badge {
+    position: absolute;
+    top: -9px;
+    left: 14px;
+    background: var(--amber);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tier-footnote {
+    margin-top: 14px;
+    font-size: 11px;
+    color: var(--text-light);
+    text-align: center;
+  }
+
+  .tier-footnote span {
+    margin: 0 8px;
+  }
+
+  /* SUBMIT */
+  .submit-wrap {
+    margin-top: 24px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--amber);
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: 0 4px 14px rgba(212,133,74,0.3);
+  }
+
+  .submit-btn:hover { background: var(--amber-light); }
+  .submit-btn:active { transform: scale(0.99); }
+
+  .form-footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: 18px;
+    line-height: 1.6;
+  }
+
+  .form-footer a {
+    color: var(--amber);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .form-footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-decor"></div>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">💇</div>
+      <span class="logo-text">Townin' Around</span>
+    </div>
+    <h1>Beauty &amp; Personal Care Listing</h1>
+    <p class="header-sub">Get your salon, spa, or personal care business listed on Burlington's local discovery platform and connect with clients right in your community.</p>
+    <span class="free-badge">✦ Free through May 31st — no credit card needed</span>
+  </div>
+</div>
+
+<div class="form-wrap">
+
+  <div class="free-banner">
+    💆 Listings are <strong>FREE through May 31st, 2026</strong> — no credit card, no commitment, no strings.
+  </div>
+
+  <form action="https://formspree.io/f/xpqonade" method="POST">
+
+    <!-- SERVICE TYPE -->
+    <div class="section">
+      <div class="section-label">Service Type</div>
+      <div class="field">
+        <label class="field-label">What best describes your business? <span class="req">*</span></label>
+        <div class="option-grid">
+          <label class="option"><input type="checkbox" name="service_type" value="Hair Salon"> 💇 Hair Salon</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Barbershop"> 💈 Barbershop</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Nail Salon"> 💅 Nail Salon</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Spa / Day Spa"> 🧖 Spa / Day Spa</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Esthetics / Skincare"> ✨ Esthetics / Skincare</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Lash / Brow Studio"> 👁️ Lash / Brow Studio</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Cosmetic Tattoo / Permanent Makeup"> 💄 Cosmetic Tattoo / PMU</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Massage Therapy"> 💆 Massage Therapy</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Tanning Salon"> 🌞 Tanning Salon</label>
+          <label class="option"><input type="checkbox" name="service_type" value="Mobile / In-home Services"> 🚗 Mobile / In-home Services</label>
+          <label class="option option-full"><input type="checkbox" name="service_type" value="Other"> ✦ Other</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">If other, please describe</label>
+        <input type="text" name="service_type_other" class="field-input" placeholder="Your answer">
+      </div>
+    </div>
+
+    <!-- CONTACT & ACCOUNT INFO -->
+    <div class="section">
+      <div class="section-label">Contact &amp; Account Information</div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Business Name <span class="req">*</span></label>
+          <input type="text" name="business_name" class="field-input" placeholder="e.g. Polished Hair Studio" required>
+        </div>
+        <div class="field">
+          <label class="field-label">Primary Contact Name <span class="req">*</span></label>
+          <input type="text" name="contact_name" class="field-input" placeholder="First and last name" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Title / Role</label>
+        <input type="text" name="contact_title" class="field-input" placeholder="e.g. Owner, Salon Manager">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Phone Number <span class="req">*</span></label>
+          <input type="tel" name="phone" class="field-input" placeholder="(319) 000-0000" required>
+        </div>
+        <div class="field">
+          <label class="field-label">Email Address <span class="req">*</span></label>
+          <input type="email" name="email" class="field-input" placeholder="you@example.com" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Billing Email <span class="hint">(leave blank if same as above)</span></label>
+        <input type="email" name="billing_email" class="field-input" placeholder="billing@example.com">
+      </div>
+    </div>
+
+    <!-- LOCATION & HOURS -->
+    <div class="section">
+      <div class="section-label">Location &amp; Hours</div>
+      <div class="field">
+        <label class="field-label">Street Address <span class="hint">(if mobile or home-based, enter your city only)</span></label>
+        <input type="text" name="address" class="field-input" placeholder="123 Main St">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">City <span class="req">*</span></label>
+          <input type="text" name="city" class="field-input" placeholder="Burlington" required>
+        </div>
+        <div class="field">
+          <label class="field-label">State &amp; ZIP <span class="req">*</span></label>
+          <input type="text" name="state_zip" class="field-input" placeholder="IA 52601" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Where do you provide services?</label>
+        <div class="option-grid">
+          <label class="option"><input type="radio" name="service_location" value="At my salon / studio"> At my salon / studio</label>
+          <label class="option"><input type="radio" name="service_location" value="Mobile — I travel to clients"> Mobile — I travel to clients</label>
+          <label class="option option-full"><input type="radio" name="service_location" value="Both in-studio and mobile"> Both in-studio and mobile</label>
+          <label class="option option-full"><input type="radio" name="service_location" value="Home-based studio"> Home-based studio</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Service Area <span class="optional">(if mobile, list cities or counties you travel to)</span></label>
+        <input type="text" name="service_area" class="field-input" placeholder="e.g. Burlington, Fort Madison, Keokuk">
+      </div>
+      <div class="field">
+        <label class="field-label">Business Hours <span class="hint">(list your available days and hours)</span></label>
+        <div class="hours-grid">
+          <span class="day-label">Monday</span>
+          <input type="text" name="hours_mon" class="field-input" placeholder="e.g. 9am–6pm or Closed">
+          <span class="day-label">Tuesday</span>
+          <input type="text" name="hours_tue" class="field-input" placeholder="e.g. 9am–6pm or Closed">
+          <span class="day-label">Wednesday</span>
+          <input type="text" name="hours_wed" class="field-input" placeholder="e.g. 9am–6pm or Closed">
+          <span class="day-label">Thursday</span>
+          <input type="text" name="hours_thu" class="field-input" placeholder="e.g. 9am–6pm or Closed">
+          <span class="day-label">Friday</span>
+          <input type="text" name="hours_fri" class="field-input" placeholder="e.g. 9am–6pm or Closed">
+          <span class="day-label">Saturday</span>
+          <input type="text" name="hours_sat" class="field-input" placeholder="e.g. 9am–3pm or Closed">
+          <span class="day-label">Sunday</span>
+          <input type="text" name="hours_sun" class="field-input" placeholder="e.g. Closed">
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Do you offer evening or weekend appointments?</label>
+        <div class="option-grid">
+          <label class="option"><input type="radio" name="after_hours" value="Yes"> Yes</label>
+          <label class="option"><input type="radio" name="after_hours" value="No"> No</label>
+          <label class="option option-full"><input type="radio" name="after_hours" value="By request"> By request</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ONLINE PRESENCE -->
+    <div class="section">
+      <div class="section-label">Online Presence</div>
+      <div class="field">
+        <label class="field-label">Website URL <span class="optional">(optional)</span></label>
+        <input type="url" name="website" class="field-input" placeholder="https://www.yourwebsite.com">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label">Facebook Page URL <span class="optional">(optional)</span></label>
+          <input type="url" name="facebook" class="field-input" placeholder="https://facebook.com/yourpage">
+        </div>
+        <div class="field">
+          <label class="field-label">Instagram Handle <span class="optional">(optional)</span></label>
+          <input type="text" name="instagram" class="field-input" placeholder="@yourhandle">
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Other Social Media <span class="hint">(TikTok, Pinterest, X, etc.)</span></label>
+        <input type="text" name="other_social" class="field-input" placeholder="e.g. TikTok: @yourhandle">
+      </div>
+    </div>
+
+    <!-- ABOUT YOUR BUSINESS -->
+    <div class="section">
+      <div class="section-label">About Your Business</div>
+      <div class="field">
+        <label class="field-label">Business Description <span class="req">*</span> <span class="hint">(2–4 sentences)</span></label>
+        <textarea name="description" class="field-textarea" placeholder="Tell customers what makes your business special. What do you specialize in? What's your vibe or approach? What makes you stand out?" required></textarea>
+      </div>
+      <div class="field">
+        <label class="field-label">Keywords / Tags <span class="hint">(words someone might search for you — e.g. balayage, microblading, deep tissue, gel nails, natural hair)</span></label>
+        <input type="text" name="keywords" class="field-input" placeholder="balayage, extensions, gel nails...">
+      </div>
+    </div>
+
+    <!-- SERVICES OFFERED -->
+    <div class="section">
+      <div class="section-label">Services Offered</div>
+      <div class="field">
+        <label class="field-label">List your top 5 services <span class="req">*</span> <span class="hint">(keep it to your most popular or signature services)</span></label>
+        <textarea name="top_services" class="field-textarea" placeholder="e.g. Haircut, Balayage, Lash extensions, Gel nails, Deep tissue massage..." required></textarea>
+      </div>
+      <div class="field">
+        <label class="field-label">Do you have a full service menu you'd like included?</label>
+        <div class="option-grid">
+          <label class="option option-full"><input type="radio" name="full_menu" value="Yes — I will email my full menu"> Yes — I'll email my full menu to admin@towninaround.com after submitting</label>
+          <label class="option option-full"><input type="radio" name="full_menu" value="No — top 5 is fine"> No — top 5 is fine</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Do you offer any of the following? <span class="hint">(select all that apply)</span></label>
+        <div class="option-grid">
+          <label class="option"><input type="checkbox" name="offerings" value="Gift cards"> Gift cards</label>
+          <label class="option"><input type="checkbox" name="offerings" value="Product retail"> Product retail</label>
+          <label class="option"><input type="checkbox" name="offerings" value="Bridal / event packages"> Bridal / event packages</label>
+          <label class="option"><input type="checkbox" name="offerings" value="Membership or monthly packages"> Membership or monthly packages</label>
+          <label class="option"><input type="checkbox" name="offerings" value="Senior discount"> Senior discount</label>
+          <label class="option"><input type="checkbox" name="offerings" value="Military discount"> Military discount</label>
+          <label class="option"><input type="checkbox" name="offerings" value="Student discount"> Student discount</label>
+          <label class="option"><input type="checkbox" name="offerings" value="First-time client special"> First-time client special</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Do you sell any retail products? <span class="hint">(list any product lines or brands you carry)</span></label>
+        <input type="text" name="retail_products" class="field-input" placeholder="e.g. Redken, OPI, Dermalogica, locally made skincare">
+      </div>
+    </div>
+
+    <!-- BOOKING & APPOINTMENTS -->
+    <div class="section">
+      <div class="section-label">Booking &amp; Appointments</div>
+      <div class="field">
+        <label class="field-label">How do clients book with you? <span class="req">*</span></label>
+        <div class="option-grid">
+          <label class="option option-full"><input type="radio" name="booking_method" value="Call or text to book" required> Call or text to book</label>
+          <label class="option option-full"><input type="radio" name="booking_method" value="Online booking"> Online booking (I'll provide the link below)</label>
+          <label class="option option-full"><input type="radio" name="booking_method" value="Walk-ins welcome"> Walk-ins welcome</label>
+          <label class="option option-full"><input type="radio" name="booking_method" value="By appointment only"> By appointment only</label>
+          <label class="option option-full"><input type="radio" name="booking_method" value="Both walk-ins and appointments"> Both walk-ins and appointments</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Online Booking Link <span class="hint">(StyleSeat, Vagaro, Square, Booksy, etc.)</span></label>
+        <input type="url" name="booking_link" class="field-input" placeholder="https://">
+      </div>
+      <div class="field">
+        <label class="field-label">Typical wait time for a new client appointment</label>
+        <div class="option-grid">
+          <label class="option"><input type="radio" name="wait_time" value="Same week"> Same week</label>
+          <label class="option"><input type="radio" name="wait_time" value="1–2 weeks"> 1–2 weeks</label>
+          <label class="option"><input type="radio" name="wait_time" value="3–4 weeks"> 3–4 weeks</label>
+          <label class="option"><input type="radio" name="wait_time" value="1–2 months"> 1–2 months</label>
+          <label class="option option-full"><input type="radio" name="wait_time" value="Currently accepting new clients"> Currently accepting new clients</label>
+          <label class="option option-full"><input type="radio" name="wait_time" value="Not currently accepting new clients"> Not currently accepting new clients</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAD CAPTURE -->
+    <div class="section">
+      <div class="section-label">Lead Capture Preference</div>
+      <p style="font-size:12px; color:var(--text-mid); margin-bottom:14px; line-height:1.5;">With the Premium tier, customers can contact you directly from your listing. How would you like to receive those inquiries?</p>
+      <div class="field">
+        <label class="field-label">Preferred contact method <span class="req">*</span></label>
+        <div class="option-grid">
+          <label class="option"><input type="radio" name="lead_preference" value="Email" required> Email</label>
+          <label class="option"><input type="radio" name="lead_preference" value="Phone call"> Phone call</label>
+          <label class="option option-full"><input type="radio" name="lead_preference" value="Both"> Both</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Best contact for inquiries <span class="hint">(phone number or email address)</span></label>
+        <input type="text" name="lead_contact" class="field-input" placeholder="Your answer">
+      </div>
+    </div>
+
+    <!-- PHOTOS & BRANDING -->
+    <div class="section">
+      <div class="section-label">Photos &amp; Branding</div>
+      <div class="field">
+        <label class="field-label">Do you have a logo or photos of your work to include?</label>
+        <div class="option-grid">
+          <label class="option option-full"><input type="radio" name="has_photos" value="Yes"> Yes — I'll email them to admin@towninaround.com</label>
+          <label class="option option-full"><input type="radio" name="has_photos" value="No"> No — not at this time</label>
+          <label class="option option-full"><input type="radio" name="has_photos" value="Help"> I'd like help with that</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTING TIER -->
+    <div class="section">
+      <div class="section-label">Select Your Listing Tier</div>
+      <div class="tier-banner">
+        All tiers are <strong>FREE through May 31st, 2026.</strong> Pick the plan that fits — you won't be charged until after the free period ends, and only if you choose to continue.
+      </div>
+      <div class="tier-list">
+        <label class="tier">
+          <input type="radio" name="listing_tier" value="Basic" required>
+          <div class="tier-content">
+            <div class="tier-top">
+              <span class="tier-name">📋 Basic</span>
+              <span class="tier-price">$4.95/month</span>
+              <span class="tier-free-tag">Free until May 31</span>
+            </div>
+            <div class="tier-desc">1 photo, business name &amp; contact info, short description, searchable in directory.</div>
+          </div>
+        </label>
+        <label class="tier">
+          <input type="radio" name="listing_tier" value="Premium">
+          <div class="tier-content">
+            <div class="tier-top">
+              <span class="tier-name">⭐ Premium</span>
+              <span class="tier-price">$9.95/month</span>
+              <span class="tier-free-tag">Free until May 31</span>
+            </div>
+            <div class="tier-desc">5 photos, full business info, menus/hours/details, enhanced directory placement.</div>
+          </div>
+        </label>
+        <label class="tier featured">
+          <span class="tier-badge">Most Popular</span>
+          <input type="radio" name="listing_tier" value="Town Leader">
+          <div class="tier-content">
+            <div class="tier-top">
+              <span class="tier-name">🏆 Town Leader</span>
+              <span class="tier-price">$19.95/month</span>
+              <span class="tier-free-tag">Free until May 31</span>
+            </div>
+            <div class="tier-desc">10 photos, full info with website links, direct lead capture in-app, post events &amp; daily specials, priority search placement, and Town Leader badge.</div>
+          </div>
+        </label>
+      </div>
+      <div class="tier-footnote">
+        <span>✓ No credit card needed now</span>
+        <span>✓ I'll reach out in mid-May</span>
+        <span>✓ Cancel anytime</span>
+      </div>
+    </div>
+
+    <!-- ADDITIONAL INFO -->
+    <div class="section">
+      <div class="section-label">Anything Else?</div>
+      <div class="field">
+        <label class="field-label">Additional notes or questions <span class="optional">(optional)</span></label>
+        <textarea name="notes" class="field-textarea" placeholder="Special instructions, questions, additional details..."></textarea>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <button type="submit" class="submit-btn">→ Submit My Listing</button>
+    </div>
+
+    <div class="form-footer">
+      By submitting this form you agree to be listed on Townin' Around.<br>
+      Questions? Contact us at <a href="mailto:admin@towninaround.com">admin@towninaround.com</a> or call <a href="tel:3197500131">319-750-0131</a>
+    </div>
+
+  </form>
+
+</div>
+
+</body>
+</html>
